@@ -42,10 +42,10 @@ Route::middleware('auth')->group(function () {
 
         DB::beginTransaction();
 
-        do {
+        $numero = Str::uuid();
+        while (Factura::where('numero', $numero)->exists()) {
             $numero = Str::uuid();
-
-        } while (Factura::where('numero', $numero)->exists());
+        }
 
         $factura = new Factura();
         $factura->numero = $numero;
